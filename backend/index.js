@@ -8,17 +8,26 @@ import connectDB from './db.js';
 const app = express();
 
 
+
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'https://noteappfrontend-ten.vercel.app',
-      'https://noteappfrontend-owfniig5z-itzskgithubs-projects.vercel.app',
-    ],
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        origin === 'http://localhost:5173' ||
+        /^https:\/\/noteappfrontend(-[a-z0-9]+)?-itzskgithubs-projects\.vercel\.app$/.test(origin) ||
+        origin === 'https://noteappfrontend-ten.vercel.app'
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
+
 
 
 app.use(express.json());
