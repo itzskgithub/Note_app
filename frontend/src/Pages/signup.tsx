@@ -1,49 +1,47 @@
-import {useState} from "react";
+
+import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {Link} from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
+import type { FormEvent } from "react";
 
 const Signup = () => {
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/auth/register`,
+        "https://YOUR-BACKEND-URL.onrender.com/api/auth/register",
         { name, email, password }
       );
+
       console.log(response.data);
-      if(response.data.success) {
-        navigate('/login');
+
+      if (response.data.success) {
+        navigate("/login");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
       <div className="w-full max-w-md rounded-2xl bg-slate-900 p-8 shadow-2xl border border-slate-800">
-
-        {/* Heading */}
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold text-white">
             Create Account
           </h2>
-
           <p className="mt-2 text-sm text-slate-400">
             Sign up to get started with your account
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-
-          {/* Name */}
           <div>
             <label
               htmlFor="name"
@@ -51,7 +49,6 @@ const Signup = () => {
             >
               Name
             </label>
-
             <input
               id="name"
               type="text"
@@ -62,7 +59,6 @@ const Signup = () => {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -70,7 +66,6 @@ const Signup = () => {
             >
               Email
             </label>
-
             <input
               id="email"
               type="email"
@@ -81,7 +76,6 @@ const Signup = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label
               htmlFor="password"
@@ -89,7 +83,6 @@ const Signup = () => {
             >
               Password
             </label>
-
             <input
               id="password"
               type="password"
@@ -100,26 +93,23 @@ const Signup = () => {
             />
           </div>
 
-          {/* Signup Button */}
           <button
             type="submit"
             className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
           >
             Create Account
           </button>
-
         </form>
 
-        {/* Login Link */}
         <p className="mt-6 text-center text-sm text-slate-400">
           Already have an account?{" "}
-          <Link to="/login"
+          <Link
+            to="/login"
             className="font-medium text-blue-500 transition hover:text-blue-400"
           >
             Login
           </Link>
         </p>
-
       </div>
     </div>
   );
