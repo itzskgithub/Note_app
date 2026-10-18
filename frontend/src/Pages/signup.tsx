@@ -14,7 +14,7 @@ const Signup = () => {
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
-      const response = await axios.post(`${API_URL}/api/auth/signup`, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         name,
         email,
         password,
