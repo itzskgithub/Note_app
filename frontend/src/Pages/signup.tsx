@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -14,10 +13,12 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://YOUR-BACKEND-URL.onrender.com/api/auth/register",
-        { name, email, password }
-      );
+      const API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
+        name,
+        email,
+        password,
+      });
 
       console.log(response.data);
 
@@ -33,9 +34,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
       <div className="w-full max-w-md rounded-2xl bg-slate-900 p-8 shadow-2xl border border-slate-800">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-white">
-            Create Account
-          </h2>
+          <h2 className="text-3xl font-bold text-white">Create Account</h2>
           <p className="mt-2 text-sm text-slate-400">
             Sign up to get started with your account
           </p>
