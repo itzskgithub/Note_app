@@ -1,24 +1,30 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../Components/navbar";
 import NoteModel from "../Components/NoteModel";
 
+interface Note {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
 function Front() {
   const [isModelOpen, setIsModelOpen] = useState(false);
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [search, setSearch] = useState("");
 
-  const handleSaveNote = (newNote) => {
+  const handleSaveNote = (newNote: Note): void => {
     setNotes((previousNotes) => [newNote, ...previousNotes]);
   };
 
-  const handleDeleteNote = (id) => {
+  const handleDeleteNote = (id: number): void => {
     setNotes((previousNotes) =>
       previousNotes.filter((note) => note.id !== id)
     );
   };
 
-  // Filter notes by title or content
   const filteredNotes = notes.filter((note) =>
     `${note.title} ${note.content}`
       .toLowerCase()

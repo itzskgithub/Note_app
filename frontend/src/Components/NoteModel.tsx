@@ -1,16 +1,27 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 
-const NoteModel = ({ onClose, onSave }) => {
+interface Note {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
+interface NoteModelProps {
+  onClose: () => void;
+  onSave: (note: Note) => void;
+}
+
+const NoteModel = ({ onClose, onSave }: NoteModelProps) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    if (!title.trim() || !content.trim()) {
-      return;
-    }
+    if (!title.trim() || !content.trim()) return;
 
     onSave({
       id: Date.now(),

@@ -1,17 +1,27 @@
 
 import { Link, useNavigate } from "react-router-dom";
+import type { Dispatch, SetStateAction, ChangeEvent } from "react";
 import "./Navbar.css";
 
-export default function Navbar({ search, setSearch }) {
+interface NavbarProps {
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
+}
+
+export default function Navbar({ search, setSearch }: NavbarProps) {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username") || "User";
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     navigate("/home");
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -29,7 +39,7 @@ export default function Navbar({ search, setSearch }) {
           type="search"
           placeholder="Search your notes..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleSearchChange}
         />
       </div>
 
