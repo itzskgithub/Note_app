@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import type { FormEvent } from 'react';
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {Link} from 'react-router-dom'
 
 const Login = () => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(
