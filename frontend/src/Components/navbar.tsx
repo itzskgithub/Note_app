@@ -1,7 +1,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import type { Dispatch, SetStateAction, ChangeEvent } from "react";
-import "./Navbar.css";
+import "./navbar.css";
 
 interface NavbarProps {
   search: string;
