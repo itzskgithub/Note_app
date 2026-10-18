@@ -1,3 +1,4 @@
+
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -10,8 +11,10 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
-      'https://noteappfrontend-ten.vercel.app/home',
+      'https://noteappfrontend-ten.vercel.app',
     ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
